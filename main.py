@@ -1,3 +1,5 @@
+x = input('Enter x > ')
+
 print('hello world')
 
 print("Test, H")
