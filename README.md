@@ -1,4 +1,3 @@
 # CSCI 101 project course
 
-Test: Ahmed Hesham Saadawy
-Test: Ayman
+Created By: [Mohammed Ayman link](https://github.com/muhammed-ayman) and [Ahmed Hesham link](https://github.com/ahmedhesham47)
