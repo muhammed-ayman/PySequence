@@ -15,4 +15,4 @@ def complement_DNA(sequence):
 
 #Takes the output of the complement function and reverses it
 def reverse_complement(sequence):
-	return complement(sequence)[::-1]
+	return complement_DNA(sequence)[::-1]
