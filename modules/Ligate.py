@@ -4,5 +4,3 @@ def ligate(toBeLigated,sequence,index):
 		return sequence.upper() + toBeLigated.upper()
 	else:
 		return sequence[0:index].upper() + toBeLigated.upper() + sequence[index:len(sequence)].upper()
-
-print(ligate("gg","atagtccgaaggctag",-1))
