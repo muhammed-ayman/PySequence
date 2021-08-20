@@ -30,25 +30,33 @@ def most_matching_nucleotides(seq_one, seq_two, seq_type):
     seq_one_nucs_count = generate_nucs_count(seq_one, changing_nuc)  # generating nucleotides counts array
     seq_two_nucs_count = generate_nucs_count(seq_two, changing_nuc)  # generating nucleotides counts array
 
-    # calculating the difference between the number of occurences of each nucleotide between the two sequences
+    # calculating the difference_ratio between the number of occurences of each nucleotide between the two sequences
 
-    nucs_diff = []
+    nucs_diff_ratio = []
     for i in range(len(seq_one_nucs_count)):
-        nucs_diff.append(abs(seq_one_nucs_count[i]
-                         - seq_two_nucs_count[i]))
+        nucs_count_addition = seq_one_nucs_count[i] \
+            + seq_two_nucs_count[i]
+        nucs_count_diff = abs(seq_one_nucs_count[i]
+                              - seq_two_nucs_count[i])
+        if nucs_count_addition != 0:
+            nucs_diff_ratio.append(nucs_count_diff
+                                   / nucs_count_addition)
+        else:
+            nucs_diff_ratio.append('Null')
 
     # calculating the least difference between a particular nucleotide in both sequences
-
-    least_diff = nucs_diff[0]
-    for i in range(len(nucs_diff)):
-        if nucs_diff[i] < least_diff:
-            least_diff = nucs_diff[i]
-
     # generating an array with the nucleotides having the least occurence difference
 
     most_matching_nucs = []
-    for i in range(len(nucs_diff)):
-        if nucs_diff[i] == least_diff:
-            most_matching_nucs.append(nucs_order[i])
+    least_diff_ratio = 1
+    for i in range(len(nucs_diff_ratio)):
+        if nucs_diff_ratio[i] != 'Null':
+            if nucs_diff_ratio[i] < least_diff_ratio:
+                most_matching_nucs = [nucs_order[i]]
+                least_diff_ratio = nucs_diff_ratio[i]
+            elif nucs_diff_ratio[i] == least_diff_ratio:
+                most_matching_nucs.append(nucs_order[i])
+            else:
+                pass
 
     return most_matching_nucs  # returning an array of the most matching nucleotides
