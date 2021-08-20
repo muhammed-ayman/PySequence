@@ -26,10 +26,12 @@ def virus_most_matching_genome(virus_seq, comp_seq):  # getting the virus sequen
     for seq in seqs:
         per_match = sequences_matching_percentage(virus_seq, seq)
         if per_match > highest_val:
+            most_matching_seqs = [seq]
             highest_val = per_match
             most_matching_seq = seq
-    for seq in seqs:
-        if sequences_matching_percentage(virus_seq, seq) == highest_val:
+        elif per_match == highest_val:
             most_matching_seqs.append(seq)
+        else:
+            pass
 
     return most_matching_seqs  # returning an array with the closest known viruses' genomes to the given one's
