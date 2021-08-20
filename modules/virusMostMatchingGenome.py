@@ -18,7 +18,7 @@ def virus_most_matching_genome(virus_seq, comp_seq):  # getting the virus sequen
         if check_DNA_validity(line) or check_RNA_validity(line):
             seqs.append(line)
 
-    # calculates the most matching sequences based on the minimum edit distance algorithm
+    # getting the most matching sequence to the virus's one based on the minimum edit distance algorithm
 
     most_matching_seqs = []
     highest_val = 0
