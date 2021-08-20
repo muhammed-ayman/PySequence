@@ -86,10 +86,10 @@ def singleStrandFeaturesDNA (dnaseq,feature):
 		segmentToBeLigated = input("What do you want to ligate? ")
 		while check_DNA_validity(segmentToBeLigated) == False:
 			segmentToBeLigated = input("Error! Enter your to-be ligated segment: \n")
-		index = int(input("After nucleotide number what do you want to add your segment? If at the end, write -1: "))
-		while index > len(dnaseq) or (index < 0 and index != -1):
-			index = int(input("After nucleotide number what do you want to add your segment? If at the end, write -1: "))
-		print("Your segment after ligation is: ",ligate(segmentToBeLigated,dnaseq,index))
+		index = input("After nucleotide number what do you want to add your segment? If at the end, write -1: ")
+		while (index.isdigit() == False and index != "-1") or int(index) > len(dnaseq) or int(index) < -1:
+			index = input("After nucleotide number what do you want to add your segment? If at the end, write -1: ")
+		print("Your segment after ligation is: ",ligate(segmentToBeLigated,dnaseq,int(index)))
 	elif feature == 6:
 		searchSegment = input("What segment do you want to search for? ")
 		while check_DNA_validity(searchSegment) == False:

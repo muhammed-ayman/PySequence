@@ -3,13 +3,13 @@ def complement_DNA(sequence):
 	complementarySeq = ""
 	for i in range(len(sequence)):
 		if sequence[i] == "G" or sequence[i] == "g":
-			complementarySeq += "c"
+			complementarySeq += "C"
 		elif sequence[i] == "C" or sequence[i] == "c":
-			complementarySeq += "g"
+			complementarySeq += "G"
 		elif sequence[i] == "T" or sequence[i] == "t":
-			complementarySeq += "a"
+			complementarySeq += "A"
 		else:
-			complementarySeq += "t"
+			complementarySeq += "T"
 	return complementarySeq
 
 
