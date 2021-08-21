@@ -1,0 +1,108 @@
+import time
+import sys
+import os
+
+# Appending the modules directory into the main_helper to import all modules
+
+current_working_dir = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
+modules_dir = f'{current_working_dir}/modules'
+sys.path.append(modules_dir)
+
+# Importing Modules
+
+from checkDNAValidity import check_DNA_validity
+from checkRNAValidity import check_RNA_validity
+from nucleotideOccurence import number_of_each_nucleotide
+from nucleotideOccurence import percentage_of_each_nucleotide
+from complementDNA import complement_DNA
+from complementDNA import reverse_complement
+from cgContent import cg_content
+from IsPalindrome import is_palindrome
+from Ligate import ligate
+from restrictionEnzyme import restriction_enzyme
+from shortTandemRepeat import STPs
+from reverseTranscriptase import reverse_transcriptase
+
+
+welcome_msg = """
+👋Hello!
+> This is a software that helps you analyze DNA & RNA strands
+> You can also translate DNA & RNA strands to their corresponding polypeptide chains!
+"""
+main_prompt_msg = """
+Enter the number corresponding to the feature you want:
+[1]: Analyze DNA & RNA strands
+[2]: Proceed with the central dogma process
+"""
+analyze_strands_msg = """
+Welcome to Strand analysis!
+---------------------------
+Enter the number corresponding to the feature you want:
+[1]: Single Strand Analysis
+[2]: Multi-Strand Analysis
+"""
+single_strand_analysis_msg = """
+Welcome to Single Strand analysis!
+----------------------------------
+Enter the number corresponding to the feature you want:
+[1]: Count the number of nucleotides and find their percentage
+[2]: Find the complementary strand
+[3]: Find the G-C content
+[4]: Check whether the strand is a palindrome or not
+[5]: Ligate a segment withing the strand
+[6]: Search whether a certain segment exists
+[7]: Count the number of times a segment occurs withing the strand
+[8]: Find the reverse of the complementary strand
+[9]: Reverse Transcriptase
+"""
+invalid_input = """
+[!]: Invalid Input
+[!]: Try Again
+"""
+invalid_DNA_seq = """
+[!]: Invalid DNA Sequence
+[!]: Try Again
+"""
+invalid_RNA_seq = """
+[!]: Invalid RNA Sequence
+[!]: Try Again
+"""
+invalid_index = """
+[!]: Invalid Index
+[!]: Try Again
+"""
+allowed_inputs = {
+    'mainPrompt' : [str(i) for i in range(1,3)],
+    'analyzeStrandsPrompt': [str(i) for i in range(1,3)],
+    'singleStrandAnalysisPrompt': [str(i) for i in range(1,10)]
+}
+main_prompt_options = {
+    '1': 'analyze_strands',
+    '2': 'central_dogma'
+}
+analyze_strands_options = {
+    '1': 'single_strand_analysis',
+    '2': 'multi_strand_analysis'
+}
+single_strand_analysis_options = {
+    '1': 'feature_1',
+    '2': 'feature_2',
+    '3': 'feature_3',
+    '4': 'feature_4',
+    '5': 'feature_5',
+    '6': 'feature_6',
+    '7': 'feature_7',
+    '8': 'feature_8',
+    '9': 'feature_9'
+}
+
+def fetchInputError(input_value, input_type):
+    if input_value not in allowed_inputs[input_type]:
+        printMsgWithDelay(invalid_input, 0.25)
+        return False
+    return True
+
+
+def printMsgWithDelay(msg, delay):
+    print(msg)
+    time.sleep(delay)
