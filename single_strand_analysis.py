@@ -1,5 +1,8 @@
 from main_helper import *
 
+# returns a DNA strand input from the user and handles the errors
+
+
 def getDNA():
     while True:
         dna_seq = check_DNA_validity(input('Enter your DNA Sequence > '))
@@ -8,6 +11,8 @@ def getDNA():
         printMsgWithDelay(invalid_DNA_seq, 1)
 
     return dna_seq
+
+# returns an RNA strand input from the user and handles the errors
 
 
 def getRNA():
@@ -18,6 +23,10 @@ def getRNA():
         printMsgWithDelay(invalid_RNA_seq, 1)
 
     return rna_seq
+
+# The following functions utilizes the above ones & the required modules \
+# to process the input and prints the output to the user
+
 
 def feature_1(first=True):
     dna_seq = getDNA()
@@ -58,8 +67,9 @@ def feature_5():
             if len(dna_seq) > int(ligate_index) >= 0:
                 break
         printMsgWithDelay(invalid_index, 1)
-    feature_output = ligate(dna_to_ligate,dna_seq,int(ligate_index))
+    feature_output = ligate(dna_to_ligate , dna_seq,int(ligate_index))
     print(f'[+]: Your Segment after ligation > {feature_output}')
+
 
 def feature_6():
     dna_seq = getDNA()
@@ -67,8 +77,9 @@ def feature_6():
         search_segment = input('Enter the segment you want to search for > ')
         if check_DNA_validity(search_segment):
             break
-        printMsgWithDelay(invalid_DNA_seq, 1)
-    feature_output = ' does ' if restriction_enzyme(dna_seq , search_segment) else ' does NOT '
+        printMsgWithDelay(invalid_DNA_seq , 1)
+    feature_output = ' does ' if \
+    restriction_enzyme(dna_seq , search_segment) else ' does NOT '
     print(f'[+]: Your segment{feature_output}exist in the strand!')
 
 
@@ -97,11 +108,17 @@ def feature_9():
     feature_output = reverse_transcriptase(rna_seq)
     print(f'[+]: The DNA strand from your entered RNA strand is > {feature_output}')
 
+# outputs the single strand analysis welcome message \
+# from the main_helper to the user and directs them to their required feature
+
+
 def main(first=True):
     if first:
         printMsgWithDelay(single_strand_analysis_msg, 1)
     single_strand_analysis_choice = input('> ')
-    if not fetchInputError(single_strand_analysis_choice, 'singleStrandAnalysisPrompt'):
+    if not fetchInputError(single_strand_analysis_choice\
+    , 'singleStrandAnalysisPrompt'):
         main(False)
     else:
-        eval(single_strand_analysis_options[single_strand_analysis_choice] + "()")
+        eval(single_strand_analysis_options\
+        [single_strand_analysis_choice] + "()")
