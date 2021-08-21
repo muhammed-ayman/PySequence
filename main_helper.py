@@ -4,7 +4,8 @@ import os
 
 # Appending the modules directory into the main_helper to import all modules
 
-current_working_dir = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
+current_working_dir = \
+    os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
 modules_dir = f'{current_working_dir}/modules'
 sys.path.append(modules_dir)
 
@@ -23,25 +24,28 @@ from restrictionEnzyme import restriction_enzyme
 from shortTandemRepeat import STPs
 from reverseTranscriptase import reverse_transcriptase
 
-
-welcome_msg = """
+welcome_msg = \
+    '''
 👋Hello!
 > This is a software that helps you analyze DNA & RNA strands
 > You can also translate DNA & RNA strands to their corresponding polypeptide chains!
-"""
-main_prompt_msg = """
+'''
+main_prompt_msg = \
+    """
 Enter the number corresponding to the feature you want:
 [1]: Analyze DNA & RNA strands
 [2]: Proceed with the central dogma process
 """
-analyze_strands_msg = """
+analyze_strands_msg = \
+    """
 Welcome to Strand analysis!
 ---------------------------
 Enter the number corresponding to the feature you want:
 [1]: Single Strand Analysis
 [2]: Multi-Strand Analysis
 """
-single_strand_analysis_msg = """
+single_strand_analysis_msg = \
+    """
 Welcome to Single Strand analysis!
 ----------------------------------
 Enter the number corresponding to the feature you want:
@@ -71,19 +75,13 @@ invalid_index = """
 [!]: Invalid Index
 [!]: Try Again
 """
-allowed_inputs = {
-    'mainPrompt' : [str(i) for i in range(1,3)],
-    'analyzeStrandsPrompt': [str(i) for i in range(1,3)],
-    'singleStrandAnalysisPrompt': [str(i) for i in range(1,10)]
-}
-main_prompt_options = {
-    '1': 'analyze_strands',
-    '2': 'central_dogma'
-}
-analyze_strands_options = {
-    '1': 'single_strand_analysis',
-    '2': 'multi_strand_analysis'
-}
+allowed_inputs = {'mainPrompt': [str(i) for i in range(1, 3)],
+                  'analyzeStrandsPrompt': [str(i) for i in range(1,
+                  3)], 'singleStrandAnalysisPrompt': [str(i) for i in
+                  range(1, 10)]}
+main_prompt_options = {'1': 'analyze_strands', '2': 'central_dogma'}
+analyze_strands_options = {'1': 'single_strand_analysis',
+                           '2': 'multi_strand_analysis'}
 single_strand_analysis_options = {
     '1': 'feature_1',
     '2': 'feature_2',
@@ -93,8 +91,9 @@ single_strand_analysis_options = {
     '6': 'feature_6',
     '7': 'feature_7',
     '8': 'feature_8',
-    '9': 'feature_9'
-}
+    '9': 'feature_9',
+    }
+
 
 def fetchInputError(input_value, input_type):
     if input_value not in allowed_inputs[input_type]:
