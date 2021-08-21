@@ -24,7 +24,7 @@ def getRNA():
 
     return rna_seq
 
-# The following functions utilizes the above ones & the required modules \
+# The following functions utilize the above ones & the required modules \
 # to process the input and prints the output to the user
 
 
