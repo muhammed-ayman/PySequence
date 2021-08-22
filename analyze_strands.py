@@ -1,5 +1,6 @@
 from main_helper import *
 import single_strand_analysis
+import multi_strand_analysis
 
 
 # initializes the strands analysis section and directs to the required sub-section

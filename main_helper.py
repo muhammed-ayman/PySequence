@@ -23,6 +23,11 @@ from Ligate import ligate
 from restrictionEnzyme import restriction_enzyme
 from shortTandemRepeat import STPs
 from reverseTranscriptase import reverse_transcriptase
+from virusMostMatchingGenome import virus_most_matching_genome
+from twoClosestSequences import two_closest_sequences
+from sequencesMatchingPercentage import sequences_matching_percentage
+from mostMatchingNucleotides import most_matching_nucleotides
+
 
 welcome_msg = \
     '''
@@ -59,6 +64,16 @@ Enter the number corresponding to the feature you want:
 [8]: Find the reverse of the complementary strand
 [9]: Reverse Transcriptase
 """
+multi_strand_analysis_msg = \
+    """
+Welcome to Multi-Strand analysis!
+----------------------------------
+Enter the number corresponding to the feature you want:
+[1]: Calculate the matching percentage between two genomic sequences
+[2]: Get the two most matching sequences from a file
+[3]: Get the most matching nucleotides in two genomic sequences
+[4]: Get the closest genomic sequence to a given virus's one
+"""
 invalid_input = """
 [!]: Invalid Input
 [!]: Try Again
@@ -71,6 +86,18 @@ invalid_RNA_seq = """
 [!]: Invalid RNA Sequence
 [!]: Try Again
 """
+invalid_seq = """
+[!]: Invalid Sequence
+[!]: Try Again
+"""
+invalid_file_path = """
+[!]: Invalid File Path
+[!]: Try Again
+"""
+invalid_seqs_types = """
+[!]: The two sequences should be of the same type
+[!]: Try Again
+"""
 invalid_index = """
 [!]: Invalid Index
 [!]: Try Again
@@ -78,7 +105,8 @@ invalid_index = """
 allowed_inputs = {'mainPrompt': [str(i) for i in range(1, 3)],
                   'analyzeStrandsPrompt': [str(i) for i in range(1,
                   3)], 'singleStrandAnalysisPrompt': [str(i) for i in
-                  range(1, 10)]}
+                  range(1, 10)],
+                  'multiStrandAnalysisPrompt': [str(i) for i in range(1,5)]}
 main_prompt_options = {'1': 'analyze_strands', '2': 'central_dogma'}
 analyze_strands_options = {'1': 'single_strand_analysis',
                            '2': 'multi_strand_analysis'}
@@ -93,7 +121,12 @@ single_strand_analysis_options = {
     '8': 'feature_8',
     '9': 'feature_9',
     }
-
+multi_strand_analysis_options = {
+    '1': 'feature_1',
+    '2': 'feature_2',
+    '3': 'feature_3',
+    '4': 'feature_4'
+    }
 
 def fetchInputError(input_value, input_type):
     if input_value not in allowed_inputs[input_type]:
