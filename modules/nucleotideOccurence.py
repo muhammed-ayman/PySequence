@@ -1,12 +1,13 @@
 #Calculates the number of occurrence of each nucleotide within a strand of DNA and store them in a list.
 def number_of_each_nucleotide(sequence):
+	sequence = sequence.upper()
 	counterG, counterC, counterT, counterA = 0,0,0,0
 	for i in range(len(sequence)):
-		if sequence[i] == "g" or sequence[i] == "G":
+		if sequence[i] == "G":
 			counterG += 1
-		elif sequence[i] == "c" or sequence[i] == "c":
+		elif sequence[i] == "C":
 			counterC += 1
-		elif sequence[i] == "t" or sequence[i] == "T":
+		elif sequence[i] == "T":
 			counterT += 1
 		else:
 			counterA += 1
