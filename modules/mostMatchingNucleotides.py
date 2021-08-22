@@ -34,6 +34,9 @@ def most_matching_nucleotides(seq_one, seq_two, seq_type):
 
     nucs_diff_ratio = []
     for i in range(len(seq_one_nucs_count)):
+        if seq_one_nucs_count[i] == 0 or seq_two_nucs_count[i] == 0:
+            nucs_diff_ratio.append('Null')
+            continue
         nucs_count_addition = seq_one_nucs_count[i] \
             + seq_two_nucs_count[i]
         nucs_count_diff = abs(seq_one_nucs_count[i]
@@ -58,5 +61,5 @@ def most_matching_nucleotides(seq_one, seq_two, seq_type):
                 most_matching_nucs.append(nucs_order[i])
             else:
                 pass
-
+    
     return most_matching_nucs  # returning an array of the most matching nucleotides
