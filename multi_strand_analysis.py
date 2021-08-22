@@ -1,6 +1,6 @@
 from main import *
 
-
+# returns whether two genomic sequences are of the same type or not
 def checkSequenceTypeSimilarity(seq_one, seq_two):
     seq_one_type = 'DNA'
     seq_two_type = 'DNA'
@@ -13,6 +13,7 @@ def checkSequenceTypeSimilarity(seq_one, seq_two):
 
     return (True , seq_one_type)
 
+# returns a genomic sequence input from the user and handles the errors
 def getSequence(user_msg):
     while True:
         seq = input(user_msg)
@@ -21,6 +22,10 @@ def getSequence(user_msg):
         printMsgWithDelay(invalid_seq, 1)
 
     return seq
+
+
+# The following functions utilize the above ones & the required modules \
+# to process the input and prints the output to the user
 
 def feature_1():
     while True:
@@ -77,7 +82,7 @@ def feature_4():
             printMsgWithDelay(invalid_seq, 1)
             continue
         break
-        
+
     while True:
         file_path = input('Enter the genomic sequences to be compared file path > ')
         match_result = virus_most_matching_genome(virus_seq, file_path)
@@ -92,6 +97,9 @@ def feature_4():
         print(f'[+]: The most matching genomic sequence to the virus\'s is {match_result[0]}')
     else:
         print(f'[+]: There are no matching sequences')
+
+# outputs the multi-strand analysis welcome message \
+# from the main_helper to the user and directs them to their required feature
 
 def main(first=True):
     if first:
