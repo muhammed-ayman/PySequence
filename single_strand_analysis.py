@@ -63,7 +63,7 @@ def feature_5():
         printMsgWithDelay(invalid_DNA_seq, 1)
     while True:
         ligate_index = input('Enter the nucleotide index after which you want to ligate the segment (-1 for ligating at the end) > ')
-        if ligate_index.isdigit() == True:
+        if ligate_index.isdigit() == True or ligate_index == '-1':
             if len(dna_seq) > int(ligate_index) >= -1:
                 break
         printMsgWithDelay(invalid_index, 1)
