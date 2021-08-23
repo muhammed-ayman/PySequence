@@ -20,15 +20,7 @@ def minimum_edit_distance(seq_one, seq_two):  # getting two string inputs repres
 
     rows = len(seq_one) + 1
     cols = len(seq_two) + 1
-    edit_matrix = []  # the dynamic programming matrix for the edit distance
-
-    # filling the edit matrix with 0s as the initial values
-
-    for i in range(rows):
-        edit_matrix_cols = []
-        for j in range(cols):
-            edit_matrix_cols.append(0)
-        edit_matrix.append(edit_matrix_cols)
+    edit_matrix = [[0 for i in range(cols)] for j in range(rows)]  # the dynamic programming matrix for the edit distance
 
     # filling the initial values of the 1st row and the 1st column
 
@@ -39,14 +31,12 @@ def minimum_edit_distance(seq_one, seq_two):  # getting two string inputs repres
 
     for i in range(1, rows):
         for j in range(1, cols):
-            edit_count = 0
             if seq_one[i - 1] != seq_two[j - 1]:
-                edit_count = 1
-
-            # adding the minimum value of the matrix cells around (i,j) to the edit_count
-
-            edit_count += minimum_value([edit_matrix[i][j - 1],
-                    edit_matrix[i - 1][j], edit_matrix[i - 1][j - 1]])
-            edit_matrix[i][j] = edit_count  # replacing the matrix(i,j) with the edit_count
+                # place 1 + the minimum value of the matrix cells around (i,j) in the matrix current position
+                edit_count = 1 + minimum_value([edit_matrix[i][j - 1],
+                        edit_matrix[i - 1][j], edit_matrix[i - 1][j - 1]])
+                edit_matrix[i][j] = edit_count  # replacing the matrix(i,j) with the edit_count
+            else:
+                edit_matrix[i][j] = edit_matrix[i-1][j-1]
 
     return edit_matrix[rows - 1][cols - 1]  # returning the edit distance as the last element in the edit matrix
