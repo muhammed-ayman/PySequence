@@ -8,4 +8,4 @@ def main():
             break
         print(invalid_DNA_seq)
     result = transcribe(dnaSequence_input)
-    print(f'[+]: The transcribed DNA is {result}')
+    print(f'[+]: The Transcribed DNA is {result}')

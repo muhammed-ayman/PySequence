@@ -1,6 +1,6 @@
 from main_helper import *
 import analyze_strands
-
+import central_dogma
 
 # printing the program welcome message to the user
 

@@ -44,7 +44,6 @@ Enter the number corresponding to the feature you want:
 [1]: Analyze DNA & RNA strands
 [2]: Proceed with the central dogma process
 """
-
 central_dogma_msg = \
     """
 Welcome to Central Dogma!
@@ -54,7 +53,6 @@ Enter the number corresponding to the feature you want:
 [2]: RNA Translation
 [3]: Automate Transcription & Translation
 """
-
 analyze_strands_msg = \
     """
 Welcome to Strand analysis!
@@ -120,7 +118,8 @@ allowed_inputs = {'mainPrompt': [str(i) for i in range(1, 3)],
                   'analyzeStrandsPrompt': [str(i) for i in range(1,
                   3)], 'singleStrandAnalysisPrompt': [str(i) for i in
                   range(1, 10)],
-                  'multiStrandAnalysisPrompt': [str(i) for i in range(1,5)]}
+                  'multiStrandAnalysisPrompt': [str(i) for i in range(1,5)],
+                  'centralDogmaPrompt': [str(i) for i in range(1,4)]}
 main_prompt_options = {'1': 'analyze_strands', '2': 'central_dogma'}
 central_dogma_options = {'1': 'dna_transcription',
                          '2': 'rna_translation',
