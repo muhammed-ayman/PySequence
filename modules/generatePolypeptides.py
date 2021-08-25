@@ -15,15 +15,20 @@ def generate_gene_RNA(seq):                             # getting triplets input
     RNAgenes = []
     RNAgene = []                                        # storing each slice beginning with a start codon
     start_codon = False
+    stop_codon = False
     for i in range(len(seq)):
-        if seq[i] == 'AUG' and start_codon == False:
-            start_codon = True
-        if start_codon == True:
-            RNAgene.append(seq[i])
-        if seq[i] in ['UAA', 'UAG', 'UGA']:
-            start_codon = False
-            RNAgenes.append(RNAgene)
-            RNAgene = []
+        if len(seq[i]) == 3:
+            if seq[i] == 'AUG' and start_codon == False:
+                start_codon = True
+            if start_codon == True:
+                RNAgene.append(seq[i])
+            if seq[i] in ['UAA', 'UAG', 'UGA']:
+                start_codon = False
+                stop_codon = True
+                RNAgenes.append(RNAgene)
+                RNAgene = []
+    if not stop_codon:
+        RNAgenes.append(RNAgene)
     return RNAgenes                                     # returning a 2D array of RNA gene-versions
 
 
@@ -37,5 +42,6 @@ def generate_polypeptides(codons):                     # getting a list of codon
             if amino != '':
                 poly_.append(amino)                    # listing amino acids in order
         poly_peptide = "–".join(poly_)                 # joining amino acids
-        generated_polypeptides.append(poly_peptide)
+        if poly_peptide:
+            generated_polypeptides.append(poly_peptide)
     return generated_polypeptides                      # returning the polypeptide chains
