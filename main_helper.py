@@ -27,7 +27,10 @@ from virusMostMatchingGenome import virus_most_matching_genome
 from twoClosestSequences import two_closest_sequences
 from sequencesMatchingPercentage import sequences_matching_percentage
 from mostMatchingNucleotides import most_matching_nucleotides
-
+from transcribe import transcribe
+from generateTriplets import generate_triplets
+from generatePolypeptides import generate_polypeptides
+from longestRepeat import get_longest_consecutive_repeat_s_
 
 welcome_msg = \
     '''
@@ -41,6 +44,17 @@ Enter the number corresponding to the feature you want:
 [1]: Analyze DNA & RNA strands
 [2]: Proceed with the central dogma process
 """
+
+central_dogma_msg = \
+    """
+Welcome to Central Dogma!
+---------------------------
+Enter the number corresponding to the feature you want:
+[1]: DNA Transcription
+[2]: RNA Translation
+[3]: Automate Transcription & Translation
+"""
+
 analyze_strands_msg = \
     """
 Welcome to Strand analysis!
