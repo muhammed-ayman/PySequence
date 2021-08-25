@@ -1,7 +1,9 @@
 from main_helper import *
 import single_strand_analysis
 import multi_strand_analysis
-
+import dna_transcription
+import rna_translation
+import automate_central_dogma
 
 # initializes the strands analysis section and directs to the required sub-section
 

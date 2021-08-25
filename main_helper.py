@@ -122,6 +122,9 @@ allowed_inputs = {'mainPrompt': [str(i) for i in range(1, 3)],
                   range(1, 10)],
                   'multiStrandAnalysisPrompt': [str(i) for i in range(1,5)]}
 main_prompt_options = {'1': 'analyze_strands', '2': 'central_dogma'}
+central_dogma_options = {'1': 'dna_transcription',
+                         '2': 'rna_translation',
+                         '3': 'automate_central_dogma'}
 analyze_strands_options = {'1': 'single_strand_analysis',
                            '2': 'multi_strand_analysis'}
 single_strand_analysis_options = {
