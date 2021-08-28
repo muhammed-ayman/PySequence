@@ -43,7 +43,7 @@ def main():
     def exitAssurance():
     	userResponse = messagebox.askyesno("Confirmation","Are you sure you want to exit?")
     	if userResponse == 1:
-    		window.quit()
+            exit()
     	else:
     		return
 
