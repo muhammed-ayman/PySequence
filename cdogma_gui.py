@@ -5,7 +5,7 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 from tkinter import filedialog
 from main_imports import *
-from main_gui import main as main_gui_main
+import main_gui
 
 def main():
 
@@ -105,7 +105,7 @@ def main():
 	#defining functions
 	def homepage():
 		window.destroy()
-		main_gui_main()
+		main_gui.main()
 
 	#defining image to be used as an icon for file navigation
 	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
