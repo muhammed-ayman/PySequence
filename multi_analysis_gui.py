@@ -6,6 +6,81 @@ from tkinter import filedialog
 from main_imports import *
 import analyze_gui
 
+
+def most_matching_seqs_sub():
+
+	#opening a window
+	window = Tk()
+
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Single Strand Analysis")
+
+	# Setting the geometry i.e Dimensions
+	window.geometry("800x700")
+
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
+
+	#changing background color
+	window.configure(background="white")
+
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	dnaInputLabel = Label(window, padx=20, pady=10, text="Enter the file containing your Sequences",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel.place(x=20,y=160)
+
+	#defining functions
+	def back():
+		window.destroy()
+		main()
+
+	def most_matching_seqs_local():
+		dna_file = two_closest_sequences(dnaSeqInput.get())
+		if not dna_file:
+			user_response = messagebox.showwarning(title='Invalid Path',message='Invalid Path!')
+			return
+
+		if len(dna_file[0]) > 0:
+			user_response = messagebox.showinfo(title='Most Matching RNA Sequences',message=f'The most matching RNA sequences are {dna_file[0][0]}')
+		if len(dna_file[1]) > 0:
+			user_response = messagebox.showinfo(title='Most Matching DNA Sequences',message=f'The most matching DNA sequences are {dna_file[1][0]}')
+			return
+		user_response = messagebox.showwarning(title='No Matching Sequences!',message='No Matching Sequences!\nCheck your File')
+
+	#file initiation
+	def openFile():
+		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+		return window.filename
+
+	def openDNAfile():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+
+		dnaSeqInput.insert(END, file_path)
+
+	#defining image to be used as an icon for file navigation
+	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
+
+	#defining buttons
+	mostMatchingBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Most Matching Sequences",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=most_matching_seqs_local)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
+	button_openFileDNA = Button(window,borderwidth=0,image=fileImage,command=openDNAfile,bg="white")
+
+	#displaying buttons
+	button_openFileDNA.place(x=250,y=220)
+	mostMatchingBtn.place(x=360,y=540)
+	back.place(x=360,y=600)
+
+	#defining input fields
+	dnaSeqInput = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput.place(x=20,y=220)
+
+	window.mainloop()
+
 def matching_per_sub():
 
 	#opening a window
@@ -139,9 +214,13 @@ def main():
 		window.destroy()
 		matching_per_sub()
 
+	def most_matching_seqs_local():
+		window.destroy()
+		most_matching_seqs_sub()
+
 	#defining buttons
 	matching_percentage = Button(window, relief="solid",borderwidth=4, padx=40, text="Matching Percentage",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=matching_per_local)
-	matching_sequences = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching sequences",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+	matching_sequences = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching sequences",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=most_matching_seqs_local)
 	matching_nucleotides = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	matching_virus = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching with virus",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
