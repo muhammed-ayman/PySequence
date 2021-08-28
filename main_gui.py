@@ -3,6 +3,8 @@ from tkinter import *
 import tkinter.font as tkFont
 from tkinter import messagebox
 import cdogma_gui
+import manual_gui
+import analyze_gui
 
 def main():
 
@@ -30,11 +32,11 @@ def main():
     #defining function to swipe pages
     def manualPage():
         window.destroy()
-        import manual_gui
+        manual_gui.main()
 
     def analyzepage():
     	window.destroy()
-    	import analyze_gui
+    	analyze_gui.main()
 
     def cdogmaepage():
     	window.destroy()

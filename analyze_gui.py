@@ -2,50 +2,53 @@
 from tkinter import *
 import tkinter.font as tkFont
 from tkinter import messagebox
+import main_gui
 
-#opening a window
-window = Tk()
+def main():
 
-#naming the title of the program
-window.title("PySequence - Version 1.0 / Analyze")
+	#opening a window
+	window = Tk()
 
-# Setting the geometry i.e Dimensions
-window.geometry("750x500")
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Analyze")
 
-#disabling maximize and minimize buttons
-window.resizable(0,0)
+	# Setting the geometry i.e Dimensions
+	window.geometry("750x500")
 
-#changing background color
-window.configure(background="white")
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
 
-#font styling
-nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+	#changing background color
+	window.configure(background="white")
 
-#defining labels
-name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
 
-#defining functions
-def homepage():
-	window.destroy()
-	import main_gui
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
 
-def singleStrandPage():
-	window.destroy()
-	import single_analysis_gui
+	#defining functions
+	def homepage():
+		window.destroy()
+		main_gui.main()
 
-def multiStrandPage():
-	window.destroy()
-	import multi_analysis_gui
+	def singleStrandPage():
+		window.destroy()
+		import single_analysis_gui
 
-#defining buttons
-singleStrand = Button(window, relief="solid",borderwidth=4, padx=40, pady=20, text="Single Strand Analysis",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=singleStrandPage)
-multiStrand = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Multi Strand Analysis",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=multiStrandPage)
-back = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
+	def multiStrandPage():
+		window.destroy()
+		import multi_analysis_gui
 
-#displaying buttons
-singleStrand.place(x=360,y=100)
-multiStrand.place(x=360,y=190)
-back.place(x=360,y=280)
+	#defining buttons
+	singleStrand = Button(window, relief="solid",borderwidth=4, padx=40, pady=20, text="Single Strand Analysis",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=singleStrandPage)
+	multiStrand = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Multi Strand Analysis",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=multiStrandPage)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
 
-#running the program
-window.mainloop()
+	#displaying buttons
+	singleStrand.place(x=360,y=100)
+	multiStrand.place(x=360,y=190)
+	back.place(x=360,y=280)
+
+	#running the program
+	window.mainloop()
