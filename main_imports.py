@@ -28,6 +28,5 @@ from twoClosestSequences import two_closest_sequences
 from sequencesMatchingPercentage import sequences_matching_percentage
 from mostMatchingNucleotides import most_matching_nucleotides
 from transcribe import transcribe
-from generateTriplets import generate_triplets
 from generatePolypeptides import generate_polypeptides
 from longestRepeat import get_longest_consecutive_repeat_s_
