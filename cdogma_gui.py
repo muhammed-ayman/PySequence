@@ -42,7 +42,7 @@ def main():
 
 	def transcribeDNA():
 		dna_seq = check_DNA_validity(dnaSeqInput.get())
-		if len(dna_seq) == 0:
+		if dna_seq == '':
 			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
 			return
 		if not dna_seq:
@@ -63,7 +63,7 @@ def main():
 
 	def translateRNA():
 		rna_seq = check_RNA_validity(rnaSeqInput.get())
-		if len(rna_seq) == 0:
+		if rna_seq == '':
 			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
 			return
 		if not rna_seq:
@@ -77,7 +77,7 @@ def main():
 
 	def automate_central_dogma():
 		dna_seq = check_DNA_validity(dnaSeqInput.get())
-		if len(dna_seq) == 0:
+		if dna_seq == '':
 			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
 			return
 		if not dna_seq:
