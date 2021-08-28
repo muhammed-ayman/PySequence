@@ -69,9 +69,8 @@ def main():
 		if not rna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
-		rnaSequence_triplets = generate_triplets(rna_seq)
-		result = generate_polypeptides(rnaSequence_triplets)
-		if len(result) > 0:
+		result = generate_polypeptides(rna_seq)
+		if result:
 			user_response = messagebox.showinfo(title='Translation Result',message=f'Translation Output: {result}')
 		else:
 			user_response = messagebox.showinfo(title='Translation Result',message=f'Nothing to Translate!\nCheck your Sequence Start Codons')
@@ -85,9 +84,8 @@ def main():
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
 		transc_dna_seq = transcribe(dna_seq)
-		rnaSequence_triplets = generate_triplets(transc_dna_seq)
-		result = generate_polypeptides(rnaSequence_triplets)
-		if len(result) > 0:
+		result = generate_polypeptides(transc_dna_seq)
+		if result:
 			user_response = messagebox.showinfo(title='Central Dogma Result',message=f'The Process Result: {result}')
 		else:
 			user_response = messagebox.showinfo(title='Translation Result',message=f'Nothing to Translate!\nCheck your Sequence Start Codons')
