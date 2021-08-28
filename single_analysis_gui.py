@@ -42,8 +42,8 @@ def gc_content():
 		main()
 
 	def cgContent():
-		if dna_seq == '':
 		dna_seq = check_DNA_validity(dnaSeqInput.get())
+		if dna_seq == '':
 			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
 			return
 		if not dna_seq:
@@ -86,7 +86,7 @@ def gc_content():
 	dnaSeqInput.place(x=20,y=220)
 
 	window.mainloop()
-	
+
 
 def complement():
 
