@@ -1,3 +1,13 @@
+def generate_triplets(seq):                    # getting the sequence that is wanted to be sliced into triplets
+    seq_ = []
+    for i in range(0, len(seq), 3):
+        if i + 3 < len(seq):
+            seq_.append(seq[i:i+3].upper())
+        else:
+            seq_.append(seq[i:].upper())
+    return seq_                                # returning a list of 3-char-strings(triplets)
+
+
 def get_amino_acid(codon):   # receiving an str input, one codon at a time
     # declaring a dictionary storing the codons and their amino acids correspondents
     corres = {'UUU': 'Phe', 'UUC': 'Phe', 'UUA': 'Leu', 'UUG': 'Leu', 'UCU': 'Ser', 'UCC': 'Ser', 'UCA': 'Ser', 'UCG': 'Ser',
@@ -11,37 +21,52 @@ def get_amino_acid(codon):   # receiving an str input, one codon at a time
     return corres[codon.upper()]    # returning the corresponding amino acid
 
 
-def generate_gene_RNA(seq):                             # getting triplets input
-    RNAgenes = []
-    RNAgene = []                                        # storing each slice beginning with a start codon
-    start_codon = False
-    stop_codon = False
-    for i in range(len(seq)):
-        if len(seq[i]) == 3:
-            if seq[i] == 'AUG' and start_codon == False:
-                start_codon = True
-            if start_codon == True:
-                RNAgene.append(seq[i])
-            if seq[i] in ['UAA', 'UAG', 'UGA']:
-                start_codon = False
-                stop_codon = True
-                RNAgenes.append(RNAgene)
-                RNAgene = []
-    if not stop_codon:
-        RNAgenes.append(RNAgene)
-    return RNAgenes                                     # returning a 2D array of RNA gene-versions
+def generate_gene_RNA(seq):                                 # Getting an input of RNA sequence
+    coding = []                                             # To store the coded sites
+    if 'AUG' not in seq:
+        return False
+    while 'AUG' in seq:
+        ind_ = seq.find('AUG')
+        seq = seq[ind_:]                                    # Getting rid of unnecessary leads
+        seq = generate_triplets(seq)                        # Separating nucleotides in triplets forms
+        start_codon = False
+        stop_codon = False
+        coding_ = ''
+        for i in range(len(seq)):
+            if len(seq[i]) == 3:
+                if seq[i] == 'AUG' and start_codon == False:
+                    start_codon = True
+                    stop_codon = False
+                if start_codon == True:
+                    coding_ += seq[i]
+                if seq[i] in ['UAA', 'UAG', 'UGA']:
+                    start_codon = False
+                    stop_codon = True
+                    coding.append(coding_)
+                    coding_ = ''
+                    seq = "".join(seq[i + 1:])              # Joining back the remaining sequence
+                    break
+        if not stop_codon:
+            coding.append(coding_)
+            seq = []
+    coding = [generate_triplets(i) for i in coding]
+    return coding                                           # Returning a list of lists of codons to be translated
 
 
-def generate_polypeptides(codons):                     # getting a list of codons after slicing the RNA strand
-    traits = generate_gene_RNA(codons)                 # generating lists of RNA gene-versions
+def generate_polypeptides(seq):                             # Getting an RNA sequence
+    if not generate_gene_RNA(seq):                          # Checking if the sequence contains a start codon
+        return False
+    traits = generate_gene_RNA(seq)
     generated_polypeptides = []
-    for seq in traits:
-        poly_ = []                                     # an empty list to store the translated amino acids
-        for i in range(len(seq)):                      # iterating over the list of codons
-            amino = get_amino_acid(seq[i])             # calling the corresponding amino acid of each codon
+    for site in traits:
+        poly_ = []
+        for i in range(len(site)):
+            amino = get_amino_acid(site[i])
             if amino != '':
-                poly_.append(amino)                    # listing amino acids in order
-        poly_peptide = "–".join(poly_)                 # joining amino acids
+                poly_.append(amino)
+        poly_peptide = "–".join(poly_)
         if poly_peptide:
             generated_polypeptides.append(poly_peptide)
-    return generated_polypeptides                      # returning the polypeptide chains
+    return generated_polypeptides                       # Returning a list of the formed polypeptide chains
+
+
