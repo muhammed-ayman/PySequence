@@ -3,6 +3,8 @@ from tkinter import *
 import tkinter.font as tkFont
 from tkinter import messagebox
 import main_gui
+import single_analysis_gui
+import multi_analysis_gui
 
 def main():
 
@@ -34,11 +36,11 @@ def main():
 
 	def singleStrandPage():
 		window.destroy()
-		import single_analysis_gui
+		single_analysis_gui.main()
 
 	def multiStrandPage():
 		window.destroy()
-		import multi_analysis_gui
+		multi_analysis_gui.main()
 
 	#defining buttons
 	singleStrand = Button(window, relief="solid",borderwidth=4, padx=40, pady=20, text="Single Strand Analysis",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=singleStrandPage)
