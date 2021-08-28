@@ -6,6 +6,120 @@ from tkinter import filedialog
 import analyze_gui
 from main_imports import *
 
+def ligate_sub():
+
+	#opening a window
+	window = Tk()
+
+	#file initiation
+	#def openFile():
+	#	window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Single Strand Analysis")
+
+	# Setting the geometry i.e Dimensions
+	window.geometry("800x700")
+
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
+
+	#changing background color
+	window.configure(background="white")
+
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	dnaInputLabel1 = Label(window, padx=20, pady=10, text="Enter the DNA Sequence",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel1.place(x=20,y=160)
+	dnaInputLabel2 = Label(window, padx=20, pady=10, text="Enter the segment you want to ligate to the original sequence",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel2.place(x=20,y=260)
+	dnaIndex = Label(window, padx=20, pady=10, text="Enter the nucleotide index after which you want to ligate the segment\n (-1 for ligating at the end)",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaIndex.place(x=20,y=360)
+
+	#defining functions
+	def back():
+		window.destroy()
+		main()
+
+	def ligate_local():
+		dna_seq = check_DNA_validity(dnaSeqInput1.get())
+		dna_segment = check_DNA_validity(dnaSeqInput2.get())
+		dna_index = dnaSeqIndex.get()
+		if dna_seq == '' or dna_segment == '':
+			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
+			return
+		if not dna_seq or not dna_segment:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		if dna_index == '':
+			user_response = messagebox.showwarning(title='No Index',message='Please Enter an Index!')
+			return
+		if dna_index.isdigit() == True or dna_index == '-1':
+			if not(len(dna_seq) > int(dna_index) >= -1):
+				user_response = messagebox.showwarning(title='Invalid Index',message='Invalid Index!')
+				return
+		else:
+			user_response = messagebox.showwarning(title='Invalid Index',message='Invalid Index!')
+			return
+
+		feature_output = ligate(dna_segment , dna_seq,int(dna_index))
+		user_response = messagebox.showinfo(title='Is Palindrome?',message=f'Your Segment after ligation > {feature_output}')
+
+	#file initiation
+	def openFile():
+		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+		return window.filename
+
+	def openDNAfile1():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		dna_file = open(file_path, 'r')
+		dna_seq = check_DNA_validity(dna_file.readline())
+		if not dna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		dnaSeqInput1.insert(END, dna_seq)
+
+	def openDNAfile2():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		dna_file = open(file_path, 'r')
+		dna_seq = check_DNA_validity(dna_file.readline())
+		if not dna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		dnaSeqInput2.insert(END, dna_seq)
+
+	#defining image to be used as an icon for file navigation
+	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
+
+	#defining buttons
+	palindromeBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Ligate",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=ligate_local)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
+	button_openFileDNA1 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile1,bg="white")
+	button_openFileDNA2 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile2,bg="white")
+
+	#displaying buttons
+	button_openFileDNA1.place(x=250,y=220)
+	button_openFileDNA2.place(x=250,y=320)
+	palindromeBtn.place(x=360,y=540)
+	back.place(x=360,y=600)
+
+	#defining input fields
+	dnaSeqInput1 = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput1.place(x=20,y=220)
+	dnaSeqInput2 = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput2.place(x=20,y=320)
+	dnaSeqIndex = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqIndex.place(x=20,y=420)
+
+	window.mainloop()
+
 def palindrome():
 
 	#opening a window
@@ -379,12 +493,16 @@ def main():
 		window.destroy()
 		palindrome()
 
+	def ligate_local():
+		window.destroy()
+		ligate_sub()
+
 	#defining buttons
 	count = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=count_nuc_local)
 	complementbtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Complementary Strand",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=complement_local)
 	gcContent = Button(window, relief="solid",borderwidth=4, padx=40, text="G-C Content",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=gc_content_local)
 	palindromeBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Palindrome?",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=palindrome_local)
-	ligate = Button(window, relief="solid",borderwidth=4, padx=40, text="Ligate a Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+	ligateBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Ligate a Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=ligate_local)
 	segmentSearch = Button(window, relief="solid",borderwidth=4, padx=40, text="Search for Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	segmentCount = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	reverseComplement = Button(window, relief="solid",borderwidth=4, padx=40, text="Reverse Complementary",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
@@ -401,7 +519,7 @@ def main():
 	complementbtn.place(x=360,y=160)
 	gcContent.place(x=360,y=220)
 	palindromeBtn.place(x=360,y=280)
-	ligate.place(x=360,y=340)
+	ligateBtn.place(x=360,y=340)
 	segmentSearch.place(x=360,y=400)
 	segmentCount.place(x=360,y=460)
 	reverseComplement.place(x=360,y=520)
