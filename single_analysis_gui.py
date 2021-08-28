@@ -269,7 +269,7 @@ def search_segment_sub():
 	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
 
 	#defining buttons
-	searchSegmentBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Ligate",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=search_segment_local)
+	searchSegmentBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Search Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=search_segment_local)
 	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
 	button_openFileDNA1 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile1,bg="white")
 	button_openFileDNA2 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile2,bg="white")
