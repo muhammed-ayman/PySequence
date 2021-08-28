@@ -4,6 +4,7 @@ import tkinter.font as tkFont
 from tkinter import messagebox
 from PIL import ImageTk, Image
 from tkinter import filedialog
+from main_imports import *
 
 #opening a window
 window = Tk()
@@ -23,6 +24,24 @@ window.configure(background="white")
 #file initiation
 def openFile():
 	window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+	return window.filename
+
+def openDNAfile():
+	file_path = openFile()
+	dna_file = open(file_path, 'r')
+	dna_seq = check_DNA_validity(dna_file.readline())
+	if not dna_seq:
+		user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+		return
+	dnaSeqInput.insert(END, dna_seq)
+
+def transcribeDNA():
+	dna_seq = check_DNA_validity(dnaSeqInput.get())
+	if not dna_seq:
+		user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+		return
+	user_response = messagebox.showinfo(title='Transcription Result',message=f'The transcribed DNA: {transcribe(dna_seq)}')
+
 
 #font styling
 nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
@@ -43,11 +62,11 @@ def homepage():
 fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
 
 #defining buttons
-button_transcription = Button(window, relief="solid",borderwidth=4, padx=40, pady=20, text="Transcribe DNA",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+button_transcription = Button(window, relief="solid",borderwidth=4, padx=40, pady=20, text="Transcribe DNA",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=transcribeDNA)
 button_translation = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Translate RNA",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 button_automation = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Automate Translation",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 back = Button(window, relief="solid", borderwidth=4, padx=40, pady=20, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
-button_openFileDNA = Button(window,borderwidth=0,image=fileImage,command=openFile,bg="white")
+button_openFileDNA = Button(window,borderwidth=0,image=fileImage,command=openDNAfile,bg="white")
 button_openFileRNA = Button(window,borderwidth=0,image=fileImage,command=openFile,bg="white")
 
 #displaying buttons
