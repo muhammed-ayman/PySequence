@@ -31,6 +31,8 @@ def main():
 
 	def openDNAfile():
 		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
 		dna_file = open(file_path, 'r')
 		dna_seq = check_DNA_validity(dna_file.readline())
 		if not dna_seq:
@@ -50,6 +52,8 @@ def main():
 
 	def openRNAfile():
 		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
 		rna_file = open(file_path, 'r')
 		rna_seq = check_RNA_validity(rna_file.readline())
 		if not rna_seq:
