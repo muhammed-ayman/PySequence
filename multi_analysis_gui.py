@@ -18,6 +18,100 @@ def checkSequenceTypeSimilarity(seq_one, seq_two):
 
     return (True , seq_one_type)
 
+
+def virus_most_matching_sub():
+
+	#opening a window
+	window = Tk()
+
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Single Strand Analysis")
+
+	# Setting the geometry i.e Dimensions
+	window.geometry("800x700")
+
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
+
+	#changing background color
+	window.configure(background="white")
+
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	dnaInputLabel1 = Label(window, padx=20, pady=10, text="Enter the Virus Genomic Sequence",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel1.place(x=20,y=160)
+	dnaInputLabel2 = Label(window, padx=20, pady=10, text="Enter the file containing older virus's genomic Sequences",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel2.place(x=20,y=260)
+
+	#defining functions
+	def back():
+		window.destroy()
+		main()
+
+	def virus_most_matching_local():
+		genomic_seq_one = dnaSeqInput1.get()
+		genomic_file_path = dnaSeqInput2.get()
+		if genomic_seq_one == '':
+			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
+			return
+		if not(check_DNA_validity(genomic_seq_one) or check_RNA_validity(genomic_seq_one)):
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+
+		match_result = virus_most_matching_genome(genomic_seq_one, genomic_file_path)
+		if len(match_result) > 1:
+			user_response = messagebox.showinfo(title='Most Matching Genomic Sequences',message=f'The most matching genomic sequences to the virus\'s are {match_result}')
+		elif len(match_result) == 1:
+			user_response = messagebox.showinfo(title='Most Matching Genomic Sequence',message=f'The most matching genomic sequence to the virus\'s is {match_result[0]}')
+		else:
+			user_response = messagebox.showinfo(title='No Matching Genomic Sequences',message=f'There are no matching sequences')
+
+	#file initiation
+	def openFile():
+		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+		return window.filename
+
+	def openDNAfile1():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		genomic_file = open(file_path, 'r')
+		seq_one = genomic_file.readline()
+		dnaSeqInput1.insert(END, seq_one)
+
+	def openDNAfile2():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		dnaSeqInput2.insert(END, file_path)
+
+	#defining image to be used as an icon for file navigation
+	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
+
+	#defining buttons
+	matchSimilarityBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Most Matching Sequences",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=virus_most_matching_local)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
+	button_openFileDNA1 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile1,bg="white")
+	button_openFileDNA2 = Button(window,borderwidth=0,image=fileImage,command=openDNAfile2,bg="white")
+
+	#displaying buttons
+	button_openFileDNA1.place(x=250,y=220)
+	button_openFileDNA2.place(x=250,y=320)
+	matchSimilarityBtn.place(x=360,y=540)
+	back.place(x=360,y=600)
+
+	#defining input fields
+	dnaSeqInput1 = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput1.place(x=20,y=220)
+	dnaSeqInput2 = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput2.place(x=20,y=320)
+
+	window.mainloop()
+
+
 def most_matching_nuc_sub():
 
 	#opening a window
@@ -332,11 +426,15 @@ def main():
 		window.destroy()
 		most_matching_nuc_sub()
 
+	def virus_most_matching_local():
+		window.destroy()
+		virus_most_matching_sub()
+
 	#defining buttons
 	matching_percentage = Button(window, relief="solid",borderwidth=4, padx=40, text="Matching Percentage",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=matching_per_local)
 	matching_sequences = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching sequences",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=most_matching_seqs_local)
 	matching_nucleotides = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=most_matching_nuc_local)
-	matching_virus = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching with virus",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+	matching_virus = Button(window, relief="solid",borderwidth=4, padx=40, text="Most matching with virus",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=virus_most_matching_local)
 	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
 	#openFileLabel = Button(window, relief="solid", borderwidth=4, padx=30, text="Open File",width=12,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=openFile)
 
