@@ -43,14 +43,14 @@ def reverse_complement_sub():
 
 
 	def reverse_complement_local():
-		rna_seq = check_RNA_validity(dnaSeqInput.get())
-		if rna_seq == '':
+		dna_seq = check_DNA_validity(dnaSeqInput.get())
+		if dna_seq == '':
 			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
 			return
-		if not rna_seq:
+		if not dna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
-		feature_output = reverse_complement(rna_seq)
+		feature_output = reverse_complement(dna_seq)
 		user_response = messagebox.showinfo(title='Reverse Complementary Strad',message=f'The reverse of the complement of your enetred strand is > {feature_output}')
 
 	#file initiation
@@ -58,16 +58,16 @@ def reverse_complement_sub():
 		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
 		return window.filename
 
-	def openRNAfile():
+	def openDNAfile():
 		file_path = openFile()
 		if not os.path.isfile(file_path):
 			return
-		rna_file = open(file_path, 'r')
-		rna_seq = check_RNA_validity(rna_file.readline())
-		if not rna_seq:
+		dna_file = open(file_path, 'r')
+		dna_seq = check_DNA_validity(dna_file.readline())
+		if not dna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
-		dnaSeqInput.insert(END, rna_seq)
+		dnaSeqInput.insert(END, dna_seq)
 
 	#defining image to be used as an icon for file navigation
 	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
@@ -77,10 +77,10 @@ def reverse_complement_sub():
 	complementbtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Reverse Complement",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=reverse_complement_local)
 	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
 
-	button_openFileRNA = Button(window,borderwidth=0,image=fileImage,command=openRNAfile,bg="white")
+	button_openFileDNA = Button(window,borderwidth=0,image=fileImage,command=openDNAfile,bg="white")
 
 	#displaying buttons
-	button_openFileRNA.place(x=250,y=220)
+	button_openFileDNA.place(x=250,y=220)
 	complementbtn.place(x=360,y=240)
 	back.place(x=360,y=300)
 
