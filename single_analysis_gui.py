@@ -4,6 +4,89 @@ import tkinter.font as tkFont
 from tkinter import messagebox
 from tkinter import filedialog
 import analyze_gui
+from main_imports import *
+
+def count_nuc():
+
+	#opening a window
+	window = Tk()
+
+	#file initiation
+	#def openFile():
+	#	window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Single Strand Analysis")
+
+	# Setting the geometry i.e Dimensions
+	window.geometry("750x500")
+
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
+
+	#changing background color
+	window.configure(background="white")
+
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	dnaInputLabel = Label(window, padx=20, pady=10, text="Enter Sequence",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel.place(x=20,y=160)
+
+	#defining functions
+	def back():
+		window.destroy()
+		main()
+
+	def count():
+		dna_seq = check_DNA_validity(dnaSeqInput.get())
+		if dna_seq == '':
+			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
+			return
+		if not dna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		feature_output_1 = number_of_each_nucleotide(dna_seq)
+		feature_output_2 = percentage_of_each_nucleotide(dna_seq)
+		user_response = messagebox.showinfo(title='Nucleotides Count & Percentages',message=f'[G,C,T,A] Count: {feature_output_1}\n[G,C,T,A] Percentages: {feature_output_2}')
+
+	#file initiation
+	def openFile():
+		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+		return window.filename
+
+	def openDNAfile():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		dna_file = open(file_path, 'r')
+		dna_seq = check_DNA_validity(dna_file.readline())
+		if not dna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		dnaSeqInput.insert(END, dna_seq)
+
+	#defining image to be used as an icon for file navigation
+	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
+
+	#defining buttons
+	count = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=count)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
+	button_openFileDNA = Button(window,borderwidth=0,image=fileImage,command=openDNAfile,bg="white")
+
+	#displaying buttons
+	button_openFileDNA.place(x=250,y=220)
+	count.place(x=360,y=240)
+	back.place(x=360,y=300)
+
+	#defining input fields
+	dnaSeqInput = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput.place(x=20,y=220)
+
+	window.mainloop()
+
 
 def main():
 
@@ -39,8 +122,12 @@ def main():
 		window.destroy()
 		analyze_gui.main()
 
+	def count_nuc_local():
+		window.destroy()
+		count_nuc()
+
 	#defining buttons
-	count = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+	count = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=count_nuc_local)
 	complement = Button(window, relief="solid",borderwidth=4, padx=40, text="Complementary Strand",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	gcContent = Button(window, relief="solid",borderwidth=4, padx=40, text="G-C Content",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	palindrome = Button(window, relief="solid",borderwidth=4, padx=40, text="Palindrome?",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
