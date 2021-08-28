@@ -6,6 +6,91 @@ from tkinter import filedialog
 import analyze_gui
 from main_imports import *
 
+
+def reverse_complement_sub():
+
+	#opening a window
+	window = Tk()
+
+	#file initiation
+	#def openFile():
+	#	window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+
+	#naming the title of the program
+	window.title("PySequence - Version 1.0 / Single Strand Analysis")
+
+	# Setting the geometry i.e Dimensions
+	window.geometry("750x500")
+
+	#disabling maximize and minimize buttons
+	window.resizable(0,0)
+
+	#changing background color
+	window.configure(background="white")
+
+	#font styling
+	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)
+
+	#defining labels
+	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
+	dnaInputLabel = Label(window, padx=20, pady=10, text="Enter Sequence",font="Helvetica 16 bold italic",fg="dark blue",bg="white")
+	dnaInputLabel.place(x=20,y=160)
+
+	#defining functions
+	def back():
+		window.destroy()
+		main()
+
+
+	def reverse_complement_local():
+		rna_seq = check_RNA_validity(dnaSeqInput.get())
+		if rna_seq == '':
+			user_response = messagebox.showwarning(title='No Sequence',message='Please Enter a Sequence!')
+			return
+		if not rna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		feature_output = reverse_complement(rna_seq)
+		user_response = messagebox.showinfo(title='Reverse Complementary Strad',message=f'The reverse of the complement of your enetred strand is > {feature_output}')
+
+	#file initiation
+	def openFile():
+		window.filename = filedialog.askopenfilename(title="Choose file",filetypes=(("txt files","*.txt"),("All Types (*txt)","*.txt")))
+		return window.filename
+
+	def openRNAfile():
+		file_path = openFile()
+		if not os.path.isfile(file_path):
+			return
+		rna_file = open(file_path, 'r')
+		rna_seq = check_RNA_validity(rna_file.readline())
+		if not rna_seq:
+			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
+			return
+		dnaSeqInput.insert(END, rna_seq)
+
+	#defining image to be used as an icon for file navigation
+	fileImage = PhotoImage(file="Images/Folder_Icon_32.png")
+
+
+	#defining buttons
+	complementbtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Reverse Complement",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=reverse_complement_local)
+	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=back)
+
+	button_openFileRNA = Button(window,borderwidth=0,image=fileImage,command=openRNAfile,bg="white")
+
+	#displaying buttons
+	button_openFileRNA.place(x=250,y=220)
+	complementbtn.place(x=360,y=240)
+	back.place(x=360,y=300)
+
+	#defining input fields
+	dnaSeqInput = Entry(window,font="Helvetica 11 bold italic",bg="White",fg="dark blue",bd=3,relief="solid",width=25)
+	dnaSeqInput.place(x=20,y=220)
+
+	window.mainloop()
+
+
 def count_segment_sub():
 
 	#opening a window
@@ -702,6 +787,10 @@ def main():
 		window.destroy()
 		count_segment_sub()
 
+	def reverse_complement_local():
+		window.destroy()
+		reverse_complement_sub()
+
 	#defining buttons
 	count = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Nucleotides",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=count_nuc_local)
 	complementbtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Complementary Strand",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=complement_local)
@@ -710,7 +799,7 @@ def main():
 	ligateBtn = Button(window, relief="solid",borderwidth=4, padx=40, text="Ligate a Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=ligate_local)
 	segmentSearch = Button(window, relief="solid",borderwidth=4, padx=40, text="Search for Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=search_segment_local)
 	segmentCount = Button(window, relief="solid",borderwidth=4, padx=40, text="Count Segment",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=count_segment_local)
-	reverseComplement = Button(window, relief="solid",borderwidth=4, padx=40, text="Reverse Complementary",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
+	reverseComplement = Button(window, relief="solid",borderwidth=4, padx=40, text="Reverse Complementary",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=reverse_complement_local)
 	reverseTranscriptase = Button(window, relief="solid", borderwidth=4, padx=40, text="Reverse Transcriptase",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan")
 	back = Button(window, relief="solid", borderwidth=4, padx=40, text="Back",width=15,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=homepage)
 	#openFileLabel = Button(window, relief="solid", borderwidth=4, padx=30, text="Open File",width=12,font="Helvetica 16 bold italic",fg="dark blue",bg="dark cyan",command=openFile)
