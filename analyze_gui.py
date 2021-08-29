@@ -28,7 +28,7 @@ def main():
 
 	#defining labels
 	name = Label(window,text="PySequence 1.0",padx=20,pady=20,font=nameFontStyle,fg="dark red",bg="white").grid(row=0, column=0)
-
+		
 	#defining functions
 	def homepage():
 		window.destroy()

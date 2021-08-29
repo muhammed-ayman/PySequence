@@ -34,7 +34,7 @@ def main():
 		if not os.path.isfile(file_path):
 			return
 		dna_file = open(file_path, 'r')
-		dna_seq = check_DNA_validity(dna_file.readline())
+		dna_seq = check_DNA_validity(dna_file.readline().replace('\n',''))
 		if not dna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
@@ -55,7 +55,7 @@ def main():
 		if not os.path.isfile(file_path):
 			return
 		rna_file = open(file_path, 'r')
-		rna_seq = check_RNA_validity(rna_file.readline())
+		rna_seq = check_RNA_validity(rna_file.readline().replace('\n',''))
 		if not rna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return

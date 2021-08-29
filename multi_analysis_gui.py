@@ -79,7 +79,7 @@ def virus_most_matching_sub():
 		if not os.path.isfile(file_path):
 			return
 		genomic_file = open(file_path, 'r')
-		seq_one = genomic_file.readline()
+		seq_one = genomic_file.readline().replace('\n','')
 		dnaSeqInput1.insert(END, seq_one)
 
 	def openDNAfile2():
@@ -177,7 +177,7 @@ def most_matching_nuc_sub():
 		if not os.path.isfile(file_path):
 			return
 		genomic_file = open(file_path, 'r')
-		seq_one = genomic_file.readline()
+		seq_one = genomic_file.readline().replace('\n','')
 		dnaSeqInput1.insert(END, seq_one)
 
 	def openDNAfile2():
@@ -185,7 +185,7 @@ def most_matching_nuc_sub():
 		if not os.path.isfile(file_path):
 			return
 		genomic_file = open(file_path, 'r')
-		seq_one = genomic_file.readline()
+		seq_one = genomic_file.readline().replace('\n','')
 		dnaSeqInput2.insert(END, seq_one)
 
 	#defining image to be used as an icon for file navigation
@@ -340,7 +340,7 @@ def matching_per_sub():
 		if not os.path.isfile(file_path):
 			return
 		dna_file = open(file_path, 'r')
-		dna_seq = check_DNA_validity(dna_file.readline())
+		dna_seq = check_DNA_validity(dna_file.readline().replace('\n',''))
 		if not dna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
@@ -351,7 +351,7 @@ def matching_per_sub():
 		if not os.path.isfile(file_path):
 			return
 		dna_file = open(file_path, 'r')
-		dna_seq = check_DNA_validity(dna_file.readline())
+		dna_seq = check_DNA_validity(dna_file.readline().replace('\n',''))
 		if not dna_seq:
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
