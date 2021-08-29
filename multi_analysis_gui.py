@@ -64,10 +64,13 @@ def virus_most_matching_sub():
 		match_result = virus_most_matching_genome(genomic_seq_one, genomic_file_path)
 		if len(match_result) > 1:
 			user_response = messagebox.showinfo(title='Most Matching Genomic Sequences',message=f'The most matching genomic sequences to the virus\'s are {match_result}')
+			logOutput(f'The most matching genomic sequences to the virus\'s are {match_result}')
 		elif len(match_result) == 1:
 			user_response = messagebox.showinfo(title='Most Matching Genomic Sequence',message=f'The most matching genomic sequence to the virus\'s is {match_result[0]}')
+			logOutput(f'The most matching genomic sequence to the virus\'s is {match_result[0]}')
 		else:
 			user_response = messagebox.showinfo(title='No Matching Genomic Sequences',message=f'There are no matching sequences')
+			logOutput('There are no matching sequences')
 
 	#file initiation
 	def openFile():
@@ -162,10 +165,13 @@ def most_matching_nuc_sub():
 		feature_output = most_matching_nucleotides(genomic_seq_one, genomic_seq_two, similarity_type_check[1])
 		if len(feature_output) > 1:
 			user_response = messagebox.showinfo(title='Most Matching Nucleotides',message=f'The most matching nucleotides are {feature_output}')
+			logOutput(f'The most matching nucleotides are {feature_output}')
 		elif len(feature_output) == 1:
 			user_response = messagebox.showinfo(title='Most Matching Nucleotides',message=f'The most matching nucleotide is {feature_output[0]}')
+			logOutput(f'The most matching nucleotide is {feature_output[0]}')
 		else:
 			user_response = messagebox.showinfo(title='No Matching Nucleotides',message=f'There are no matching nucleotides!')
+			logOutput(f'There are no matching nucleotides!')
 
 	#file initiation
 	def openFile():
@@ -249,10 +255,13 @@ def most_matching_seqs_sub():
 
 		if len(dna_file[0]) > 0:
 			user_response = messagebox.showinfo(title='Most Matching RNA Sequences',message=f'The most matching RNA sequences are {dna_file[0][0]}')
+			logOutput(f'The most matching RNA sequences are {dna_file[0][0]}')
 		if len(dna_file[1]) > 0:
 			user_response = messagebox.showinfo(title='Most Matching DNA Sequences',message=f'The most matching DNA sequences are {dna_file[1][0]}')
+			logOutput(f'The most matching DNA sequences are {dna_file[1][0]}')
 			return
 		user_response = messagebox.showwarning(title='No Matching Sequences!',message='No Matching Sequences!\nCheck your File')
+		logOutput('No Matching Sequences!\nCheck your File')
 
 	#file initiation
 	def openFile():
@@ -329,6 +338,7 @@ def matching_per_sub():
 
 		feature_output = round(sequences_matching_percentage(dna_seq_one, dna_seq_two),2)
 		user_response = messagebox.showinfo(title='Matching Percentage',message=f'The sequences matching percentage is {feature_output}%')
+		logOutput(f'The sequences matching percentage is {feature_output}%')
 
 	#file initiation
 	def openFile():

@@ -52,6 +52,7 @@ def reverse_trascriptase_sub():
 			return
 		feature_output = reverse_transcriptase(rna_seq)
 		user_response = messagebox.showinfo(title='Reverse Complementary Strad',message=f'The DNA strand from your entered RNA strand is > {feature_output}')
+		logOutput(f'The DNA strand from your entered RNA strand is > {feature_output}')
 
 	#file initiation
 	def openFile():
@@ -136,6 +137,7 @@ def reverse_complement_sub():
 			return
 		feature_output = reverse_complement(dna_seq)
 		user_response = messagebox.showinfo(title='Reverse Complementary Strad',message=f'The reverse of the complement of your enetred strand is > {feature_output}')
+		logOutput(f'The reverse of the complement of your enetred strand is > {feature_output}')
 
 	#file initiation
 	def openFile():
@@ -220,8 +222,10 @@ def count_segment_sub():
 		feature_output = STPs(dna_seq, dna_segment)
 		if feature_output != 0:
 			user_response = messagebox.showinfo(title='Does Segment Exist?',message=f'Your segment occurs {feature_output} times!')
+			logOutput(f'Your segment occurs {feature_output} times!')
 		else:
 			user_response = messagebox.showinfo(title='Does Segment Exist?',message=f'Your segment doesn\'t occur in the strand')
+			logOutput(f'Your segment doesn\'t occur in the strand')
 
 	#file initiation
 	def openFile():
@@ -321,6 +325,7 @@ def search_segment_sub():
 
 		feature_output = feature_output = ' does ' if restriction_enzyme(dna_seq , dna_segment) else ' does NOT '
 		user_response = messagebox.showinfo(title='Does Segment Exist?',message=f'Your segment{feature_output}exist in the strand!')
+		logOutput(f'Your segment{feature_output}exist in the strand!')
 
 	#file initiation
 	def openFile():
@@ -433,6 +438,7 @@ def ligate_sub():
 
 		feature_output = ligate(dna_segment , dna_seq,int(dna_index))
 		user_response = messagebox.showinfo(title='Is Palindrome?',message=f'Your Segment after ligation > {feature_output}')
+		logOutput(f'Your Segment after ligation > {feature_output}')
 
 	#file initiation
 	def openFile():
@@ -530,6 +536,7 @@ def palindrome():
 			return
 		feature_output = ' ' if is_palindrome(dna_seq) else ' NOT '
 		user_response = messagebox.showinfo(title='Is Palindrome?',message=f'Your strand is{feature_output}a palindrome!')
+		logOutput(f'Your strand is{feature_output}a palindrome!')
 
 	#file initiation
 	def openFile():
@@ -610,6 +617,7 @@ def gc_content():
 			return
 		feature_output = cg_content(dna_seq)
 		user_response = messagebox.showinfo(title='GC Content',message=f'Your GC Content is: {feature_output}%')
+		logOutput(f'Your GC Content is: {feature_output}%')
 
 	#file initiation
 	def openFile():
@@ -691,6 +699,7 @@ def complement():
 			return
 		feature_output = complement_DNA(dna_seq)
 		user_response = messagebox.showinfo(title='Complementary Strad',message=f'Your complementary strand is: {feature_output}')
+		logOutput(f'Your complementary strand is: {feature_output}')
 
 	#file initiation
 	def openFile():
@@ -772,6 +781,7 @@ def count_nuc():
 		feature_output_1 = number_of_each_nucleotide(dna_seq)
 		feature_output_2 = percentage_of_each_nucleotide(dna_seq)
 		user_response = messagebox.showinfo(title='Nucleotides Count & Percentages',message=f'[G,C,T,A] Count: {feature_output_1}\n[G,C,T,A] Percentages: {feature_output_2}')
+		logOutput(f'[G,C,T,A] Count: {feature_output_1}\n[G,C,T,A] Percentages: {feature_output_2}')
 
 	#file initiation
 	def openFile():

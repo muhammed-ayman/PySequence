@@ -49,6 +49,7 @@ def main():
 			user_response = messagebox.showwarning(title='Invalid Sequence',message='Invalid Sequence!')
 			return
 		user_response = messagebox.showinfo(title='Transcription Result',message=f'The transcribed DNA: {transcribe(dna_seq)}')
+		logOutput(f'The transcribed DNA: {transcribe(dna_seq)}')
 
 	def openRNAfile():
 		file_path = openFile()
@@ -72,8 +73,10 @@ def main():
 		result = generate_polypeptides(rna_seq)
 		if result:
 			user_response = messagebox.showinfo(title='Translation Result',message=f'Translation Output: {result}')
+			logOutput(f'Translation Output: {result}')
 		else:
-			user_response = messagebox.showinfo(title='Translation Result',message=f'Nothing to Translate!\nCheck your Sequence Start Codons')
+			user_response = messagebox.showinfo(title='Translation Result',message='Nothing to Translate!\nCheck your Sequence Start Codons')
+			logOutput('Nothing to Translate!\nCheck your Sequence Start Codons')
 
 	def automate_central_dogma():
 		dna_seq = check_DNA_validity(dnaSeqInput.get())
@@ -87,8 +90,10 @@ def main():
 		result = generate_polypeptides(transc_dna_seq)
 		if result:
 			user_response = messagebox.showinfo(title='Central Dogma Result',message=f'The Process Result: {result}')
+			logOutput(f'The Process Result: {result}')
 		else:
-			user_response = messagebox.showinfo(title='Translation Result',message=f'Nothing to Translate!\nCheck your Sequence Start Codons')
+			user_response = messagebox.showinfo(title='Translation Result',message='Nothing to Translate!\nCheck your Sequence Start Codons')
+			logOutput('Nothing to Translate!\nCheck your Sequence Start Codons')
 
 	#font styling
 	nameFontStyle = tkFont.Font(family="Lucida Grande", size=20)

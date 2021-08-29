@@ -30,3 +30,9 @@ from mostMatchingNucleotides import most_matching_nucleotides
 from transcribe import transcribe
 from generatePolypeptides import generate_polypeptides
 from longestRepeat import get_longest_consecutive_repeat_s_
+
+
+def logOutput(output):
+    file = open('entry_output_files/main_output.txt','a')
+    file.write(f'[{time.ctime()}]: {output}\n')
+    file.close()
