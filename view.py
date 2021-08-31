@@ -23,6 +23,96 @@ class View():
         else:
             return
 
+class SingleStrandAnalysis(View):
+    def __init__(self):
+        super().__init__()
+        self.window_specifications = {
+            'geometry': '750x750'
+        }
+
+    def generate_button(self,button_text,button_command):
+        button = Button(self.window,
+                    relief="solid",
+                    borderwidth=4,
+                    padx=40,
+                    text=button_text,
+                    width=15,
+                    font="Helvetica 16 bold italic",
+                    fg="dark blue",
+                    bg="dark cyan",
+                    command=eval(f'self.{button_command}'))
+        return button
+
+    def render(self):
+        self.window.geometry(self.window_specifications['geometry'])
+        self.window.title(MAIN_TITLE)
+        self.window.resizable(0,0)
+        self.window.configure(background=BACKGROUND_COLOR)
+        self.program_title = Label(self.window,
+                        text=PROGRAM_TITLE,
+                        padx=20, pady=20,
+                        font=self.render_font('Lucida Grande', 20),
+                        fg="dark red",
+                        bg="white")
+        self.button_count_nucleotides = self.generate_button('Count Nucleotides', 'count_nuc_window')
+        self.button_complementary_strand = self.generate_button('Complementary Strand', 'complementary_strand_window')
+        self.button_gc_content = self.generate_button('G-C Content', 'gc_content_window')
+        self.button_palindrome = self.generate_button('Palindrome?', 'palindrome_window')
+        self.button_ligate = self.generate_button('Ligate a Segment', 'ligate_window')
+        self.button_search_segment = self.generate_button('Search for Segment', 'search_segment_window')
+        self.button_count_segment = self.generate_button('Count Segment', 'count_segment_window')
+        self.button_reverse_complement = self.generate_button('Reverse Complementary', 'reverse_complement_window')
+        self.button_reverse_transcriptase = self.generate_button('Reverse Transcriptase', 'reverse_transcriptase_window')
+        self.button_back = self.generate_button('Back', 'analyze_window')
+
+        self.display_objects()
+        self.window.mainloop()
+
+    def display_objects(self):
+        self.program_title.grid(row=0, column=0)
+        self.button_count_nucleotides.place(x=360,y=100)
+        self.button_complementary_strand.place(x=360,y=160)
+        self.button_gc_content.place(x=360,y=220)
+        self.button_palindrome.place(x=360,y=280)
+        self.button_ligate.place(x=360,y=340)
+        self.button_search_segment.place(x=360,y=400)
+        self.button_count_segment.place(x=360,y=460)
+        self.button_reverse_complement.place(x=360,y=520)
+        self.button_reverse_transcriptase.place(x=360,y=580)
+        self.button_back.place(x=360,y=640)
+
+    def count_nuc_window(self):
+        pass
+
+    def complementary_strand_window(self):
+        pass
+
+    def gc_content_window(self):
+        pass
+
+    def palindrome_window(self):
+        pass
+
+    def ligate_window(self):
+        pass
+
+    def search_segment_window(self):
+        pass
+
+    def count_segment_window(self):
+        pass
+
+    def reverse_complement_window(self):
+        pass
+
+    def reverse_transcriptase_window(self):
+        pass
+
+    def analyze_window(self):
+        self.window.destroy()
+        analyze_window_instance = Analyze()
+        analyze_window_instance.render()
+
 
 class Analyze(View):
     def render(self):
@@ -77,7 +167,9 @@ class Analyze(View):
         self.button_back.place(x=360,y=280)
 
     def single_strand_window(self):
-        pass
+        self.window.destroy()
+        self.single_strand_instance = SingleStrandAnalysis()
+        self.single_strand_instance.render()
 
     def multi_strand_window(self):
         pass
