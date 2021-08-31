@@ -170,6 +170,18 @@ class CentralDogma(View):
                         bd=3,
                         relief="solid",
                         width=25)
+        self.label_input_dna_seq = Label(self.window,
+                        padx=20, pady=10,
+                        text="Enter Your DNA Sequence",
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="white")
+        self.label_input_rna_seq = Label(self.window,
+                        padx=20, pady=10,
+                        text="Enter Your RNA Sequence",
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="white")
 
         self.display_objects()
         self.window.mainloop()
@@ -178,10 +190,13 @@ class CentralDogma(View):
         self.program_title.grid(row=0, column=0)
         self.button_transcription.place(x=360,y=100)
         self.button_translation.place(x=360,y=190)
+        self.button_automate_central_dogma.place(x=360,y=280)
         self.button_open_dna_file.place(x=250,y=220)
         self.button_open_rna_file.place(x=250,y=390)
         self.input_dna_seq.place(x=20,y=220)
         self.input_rna_seq.place(x=20,y=390)
+        self.label_input_dna_seq.place(x=0,y=160)
+        self.label_input_rna_seq.place(x=0,y=330)
         self.button_back.place(x=360,y=370)
 
     def transcribe_dna(self):
