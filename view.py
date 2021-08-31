@@ -87,6 +87,123 @@ class Analyze(View):
         main_instance = Main()
         main_instance.render()
 
+class CentralDogma(View):
+    def __init__(self):
+        super().__init__()
+        self.window_specifications = {
+            'geometry': '750x500'
+        }
+
+    def render(self):
+        self.window.geometry(self.window_specifications['geometry'])
+        self.window.title(MAIN_TITLE)
+        self.window.resizable(0,0)
+        self.window.configure(background=BACKGROUND_COLOR)
+        self.program_title = Label(self.window,
+                        text=PROGRAM_TITLE,
+                        padx=20, pady=20,
+                        font=self.render_font('Lucida Grande', 20),
+                        fg="dark red",
+                        bg="white")
+        self.button_transcription = Button(self.window,
+                        relief="solid",
+                        borderwidth=4,
+                        padx=40, pady=20,
+                        text="Transcribe DNA",
+                        width=15,
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="dark cyan",
+                        command=self.transcribe_dna)
+        self.button_translation = Button(self.window,
+                        relief="solid",
+                        borderwidth=4,
+                        padx=40, pady=20,
+                        text="Translate DNA",
+                        width=15,
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="dark cyan",
+                        command=self.translate_dna)
+        self.button_automate_central_dogma = Button(self.window,
+                        relief="solid",
+                        borderwidth=4,
+                        padx=40, pady=20,
+                        text="Automate Central Dogma",
+                        width=15,
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="dark cyan",
+                        command=self.automate_central_dogma)
+        self.button_back = Button(self.window,
+                        relief="solid",
+                        borderwidth=4,
+                        padx=40, pady=20,
+                        text="Back",
+                        width=15,
+                        font="Helvetica 16 bold italic",
+                        fg="dark blue",
+                        bg="dark cyan",
+                        command=self.main_window)
+        self.open_folder_img = PhotoImage(file=f"{ASSETS_FOLDER_PATH}{OPEN_FOLDER_IMG}")
+        self.button_open_dna_file = Button(self.window,
+                        borderwidth=0,
+                        image=self.open_folder_img,
+                        command=self.open_dna_file,
+                        bg="white")
+        self.button_open_rna_file = Button(self.window,
+                        borderwidth=0,
+                        image=self.open_folder_img,
+                        command=self.open_rna_file,
+                        bg="white")
+        self.input_dna_seq = Entry(self.window,
+                        font="Helvetica 11 bold italic",
+                        bg="White",
+                        fg="dark blue",
+                        bd=3,
+                        relief="solid",
+                        width=25)
+        self.input_rna_seq = Entry(self.window,
+                        font="Helvetica 11 bold italic",
+                        bg="White",
+                        fg="dark blue",
+                        bd=3,
+                        relief="solid",
+                        width=25)
+
+        self.display_objects()
+        self.window.mainloop()
+
+    def display_objects(self):
+        self.program_title.grid(row=0, column=0)
+        self.button_transcription.place(x=360,y=100)
+        self.button_translation.place(x=360,y=190)
+        self.button_open_dna_file.place(x=250,y=220)
+        self.button_open_rna_file.place(x=250,y=390)
+        self.input_dna_seq.place(x=20,y=220)
+        self.input_rna_seq.place(x=20,y=390)
+        self.button_back.place(x=360,y=370)
+
+    def transcribe_dna(self):
+        pass
+
+    def translate_dna(self):
+        pass
+
+    def automate_central_dogma(self):
+        pass
+
+    def open_dna_file(self):
+        pass
+
+    def open_rna_file(self):
+        pass
+
+    def main_window(self):
+        self.window.destroy()
+        main_instance = Main()
+        main_instance.render()
+
 class Manual(View):
     def __init__(self):
         super().__init__()
@@ -271,7 +388,9 @@ class Main(View):
         manual_instance.render()
 
     def cdogmae_window(self):
-        pass
+        self.window.destroy()
+        central_dogma_instance = CentralDogma()
+        central_dogma_instance.render()
 
 if __name__ == '__main__':
     app = Main()
